@@ -1,0 +1,115 @@
+﻿@model School_Management_System.ViewModel.StudentCreateViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<h2>Edit Student Information</h2>
+<hr />
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@using (Html.BeginForm("AddOrEdit", "StudentViewModel", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "SubmitForm" }))
+{
+    @Html.AntiForgeryToken();
+    @Html.HiddenFor(t => t.StudentId)
+    <div class="row">
+        <div class="input-field col s2">
+            @Html.LabelFor(t => t.StudentName)
+        </div>
+        <div class="input-field col s10">
+            @Html.EditorFor(t => t.StudentName)
+            @Html.ValidationMessageFor(p => p.StudentName, "")
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s2">
+            @Html.LabelFor(t => t.Address)
+        </div>
+        <div class="input-field col s10">
+            @Html.EditorFor(t => t.Address)
+            @Html.ValidationMessageFor(p => p.Address, "")
+        </div>
+    </div><div class="row">
+        <div class="input-field col s2">
+            @Html.LabelFor(t => t.Email)
+        </div>
+        <div class="input-field col s10">
+            @Html.EditorFor(t => t.Email)
+            @Html.ValidationMessageFor(p => p.Email, "")
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s2">
+            @Html.LabelFor(t => t.Contact)
+        </div>
+        <div class="input-field col s10">
+            @Html.EditorFor(t => t.Contact)
+            @Html.ValidationMessageFor(p => p.Contact, "")
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s2">
+            @Html.LabelFor(t => t.StudentDOB)
+        </div>
+        <div class="input-field col s10">
+            @Html.EditorFor(model => model.StudentDOB, new { htmlAttributes = new { @class = "datepicker" } })
+            @Html.ValidationMessageFor(p => p.StudentDOB, "")
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s2">
+            @Html.LabelFor(model => model.ImageUrl)
+        </div>
+        <img src="~/Images/no.png" height="80" width="75" class="change_edit" />
+        <input type="file" name="ImageFile" class="changeImage" />
+        @Html.ValidationMessageFor(model => model.ImageUrl, "")
+
+    </div>
+    <div class="row">
+        <div class="input-field col s2">
+            <input type="submit" value="Update" class="btn-small blue" />
+        </div>
+    </div>
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Content/js/materialize.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#OrderDate").datepicker({
+            changeMonth: true, changeYear: true,
+            yearRange: "-35:+1"
+        });
+    })
+    $(function () {
+        $('.changeImage').change(function () {
+            var input = this;
+            if (input.files) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.change_edit').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        })
+    })
+    $(document).ready(function () {
+        $('.datepicker').datepicker();
+    });
+
+    function activatejQueryTable() {
+        $("#StudentTable").DataTable();
+    }
+
+    $(function () {
+        activatejQueryTable();
+    });
+
+</script>
+
+
+

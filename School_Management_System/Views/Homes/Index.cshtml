@@ -1,0 +1,99 @@
+﻿@model School_Management_System.ViewModel.VmDepartmentWiseBook
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-8">
+        <h4>Department Details</h4>
+        <p>
+            <a href="/Homes/Create" class="btn btn-sm btn-success">Create New</a>
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    Department
+                </th>
+                <th>
+                    Avaiable Book
+                </th>
+                <th>Action</th>
+            </tr>
+
+            @foreach (var item in Model.DepartmentList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartmentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        <a href="/Homes/Index?id=@item.DepartmentId" class="btn-small cyan">Details</a>
+                        <a href="/Homes/EditMultiple?id=@item.DepartmentId" class="btn-small blue">Edit</a>
+                        <a href="/Homes/DeleteMultiple?id=@item.DepartmentId" class="btn-small red" onclick="return confirm('Are you sure to delete this Department with Books?')">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-4">
+        <h4>Book Details</h4>
+        <p>
+            <a href="/Homes/Create" class="btn btn-sm btn-success">Create New</a>
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    Department
+                </th>
+                <th>
+                    Student Rool
+                </th>
+                <th>
+                    Book's name
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Issue Date
+                </th>
+                <th>
+                    Book Image
+                </th>
+                <th>Action</th>
+            </tr>
+
+            @foreach (var item in Model.BookList)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rool)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BooktName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpireDate)
+            </td>
+            <td>
+                <img src="@item.ImagePath" style="height:150px" />
+            </td>
+            <td>
+                <a href="/Homes/Edit?id=@item.BookId" class=" btn-small blue">Edit</a>
+                <a href="/Homes/Delete?id=@item.BookId" class="btn-small red" onclick="return confirm('Are you sure to delete this Book?')">Delete</a>
+            </td>
+
+        </tr>
+            }
+        </table>
+    </div>
+</div>

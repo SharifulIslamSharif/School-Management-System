@@ -1,0 +1,72 @@
+﻿@model School_Management_System.ViewModel.VmDepartmentWiseBook
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4>Edit Books</h4>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@using (Html.BeginForm("EditMultiple", "Homes", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            Category:
+            <select id="DepartmentId" name="DepartmentId" required class="dropdown-trigger btn">
+                @foreach (var item in Model.DepartmentList)
+                {
+                    var Selected = item.DepartmentId == Model.DepartmentId ? "selected" : "";
+                    <option value="@item.DepartmentId" @Selected>@item.DepartmentName</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <div id="ProData" class="Table">
+                <div id="RowData" class="Row">
+                    <input type="hidden" name="BookId" />
+                    <input type="text" name="BooktName" placeholder="Book Name" />
+                    <input type="text" name="Quantity" placeholder="Quantity" />
+                    <input type="text" name="Rool" placeholder="Price" />
+                    <input type="date" name="ExpireDate" placeholder="Date" />
+                    <input type="file" name="imgFile" placeholder="Image" />
+                    <a id="addRow" href="#" class="btn-small cyan"><i>Add New</i></a><hr />
+                </div>
+                @foreach (var item in Model.BookList)
+                {
+                    var ExpireDate = item.ExpireDate == null ? "" : Convert.ToDateTime(item.ExpireDate).ToString("yyyy-MM-dd");
+            <div id="RowData" class="Row">
+                <input type="hidden" name="BookId" value="@item.BookId" />
+                <input type="text" name="Rool" placeholder="Student Rool" value="@item.Rool" />
+                <input type="text" name="BooktName" placeholder="Book Name" value="@item.BooktName" />
+                <input type="text" name="Quantity" placeholder="Quantity" value="@item.Quantity" />
+                <input type="date" name="ExpireDate" placeholder="Date" value="@ExpireDate" />
+                <input type="file" name="imgFile" placeholder="Image" />
+                <a id="deleteRow" href="#" class="btn-small red"><i>Remove</i></a>
+                <img src="@item.ImagePath" style="width:150px" />
+                <hr />
+            </div>
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update" class="btn green">
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+
+    $('#addRow').on('click', function () {
+        $('#ProData').append('<div id="RowData" class="Row"><input type="text" name="BookName" placeholder="Book Name" /><input type="text" name="Quantity" placeholder="Quantity" /><input type="text" name="Rool" placeholder="Price" /><input type="date" name="ExpireDate" placeholder="Date" /><input type="file" name="imgFile" placeholder="Image" /><a id="deleteRow" href="#" class="btn btn-xs btn-danger"><i>Remove</i></a><hr /></div>');
+        $('#ProData').addClass();
+        return false;
+    });
+    $('#ProData').on('click', '#deleteRow', function () {
+        $(this).parent().remove();
+        return false;
+    });
+</script>

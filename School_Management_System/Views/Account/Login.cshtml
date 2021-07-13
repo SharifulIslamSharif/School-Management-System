@@ -1,0 +1,56 @@
+﻿@model School_Management_System.Models.tblUser
+
+@{
+
+    ViewBag.Title = "Login";
+}
+<div style="color:red; padding-top:10px">
+    <h5>
+        @using School_Management_System.Custom_helper
+        @Custom_helper_class.Label("If you allready registered then Login otherwise Go to Signup Page for Register")
+    </h5>
+</div>
+
+<h3>User Login</h3>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <form class="col s12">
+            @Html.ValidationSummary(true, "")
+            <div class="row">
+                <div class="input-field col s2">
+                    @Html.LabelFor(model => model.UserName)
+                </div>
+                <div class="input-field col s10">
+                    @Html.EditorFor(model => model.UserName)
+                    @Html.ValidationMessageFor(model => model.UserName, "")
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s2">
+                    @Html.LabelFor(model => model.UserPassword)
+                </div>
+                <div class="input-field col s10">
+                    @Html.EditorFor(model => model.UserPassword)
+                    @Html.ValidationMessageFor(model => model.UserPassword, "")
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s10">
+                    <input type="submit" value="Login" class="btn" />
+                </div>
+            </div>
+        </form>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Go to Sign up", "Register")
+</div>
+
+

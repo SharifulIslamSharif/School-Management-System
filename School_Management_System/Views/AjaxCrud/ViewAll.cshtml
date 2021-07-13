@@ -1,0 +1,69 @@
+﻿@model IEnumerable<School_Management_System.Models.StudentAjax>
+
+@{
+    ViewBag.Title = "ViewAll";
+    Layout = null;
+}
+
+<table class="responsive-table" id="EmployeeTable">
+    <thead>
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model=>model.StudentName)*@
+                Student Name
+            </th> 
+            <th>
+                @*@Html.DisplayNameFor(model=>model.StudentAddress)*@
+                Address
+            </th> 
+            <th>
+                @Html.DisplayNameFor(model=>model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact)
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.StudentDOB)*@
+                Dato of Birth
+            </th>
+            <th>
+               Picture
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem=>item.StudentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentDOB)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.ImagePath)" height="70" width="65" />
+                </td>
+                <td>
+                    <a class="waves-effect waves-light btn" onclick="Edit('@Url.Action("AddOrEdit", "AjaxCrud", new { id=@item.StudentID})')">Edit</a>
+                    <a class="waves-effect waves-light btn" onclick="Delete('@Url.Action("Delete", "AjaxCrud", new { id=@item.StudentID})')">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+

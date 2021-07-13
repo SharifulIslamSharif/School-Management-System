@@ -1,0 +1,102 @@
+﻿@model School_Management_System.Models.StudentAjax
+
+@{
+    ViewBag.Title = "AddOrEdit";
+    Layout = null;
+}
+
+@using (Html.BeginForm("AddOrEdit", "AjaxCrud", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPost(this);", data_restUrl = Url.Action("AddOrEdit", "Ajax", new { id = 0 }) }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <form class="col s1">
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.StudentID)
+            @Html.HiddenFor(model => model.ImagePath)
+            <div class="row">
+                <div class="input-field col s2">
+                    @*@Html.LabelFor(model => model.StudentName, new { @class = "control-label col-md-2" })*@
+                    Student Name
+                </div>
+                <div class="input-field col s10">
+                    @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StudentName)
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s2">
+                    @*@Html.LabelFor(model => model.StudentAddress, new { @class = "control-label col-md-2" })*@
+                    Student Address
+                </div>
+                <div class="input-field col s10">
+                    @Html.EditorFor(model => model.StudentAddress, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StudentAddress)
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s2">
+                    @*@Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })*@
+                    Email
+                </div>
+                <div class="input-field col s10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s2">
+                    @*@Html.LabelFor(model => model.Contact, new { @class = "control-label col-md-2" })*@
+                    Contact
+                </div>
+                <div class="input-field col s10">
+                    @Html.EditorFor(model => model.Contact, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Contact)
+                </div>
+            </div>
+           
+            <div class="row">
+                <div class="input-field col s2">
+                    @*@Html.LabelFor(model => model.StudentDOB, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    Date of Birth
+                </div>
+                <div class="input-field col s10">
+                    @Html.EditorFor(model => model.StudentDOB, new { htmlAttributes = new { @class = "datepicker" } }) 
+                    @Html.ValidationMessageFor(model => model.StudentDOB)
+                </div>
+            </div>
+
+            <div class="row">
+                @*@Html.LabelFor(model => model.ImagePath, new { @class = "control-label col-md-2" })*@
+
+                <img src="@Url.Content(Model.ImagePath)" style="margin:10px" height="200" width="200" id="imagePreview" />
+                <input type="file" name="ImageUpload" accept="image/jpeg, image/png" onchange="ShowImagePreview(this,document.getElementById('imagePreview'))" />
+            </div>
+            <div class="row">
+                <input type="submit" value="Submit" class="btn green" />
+                @if (Model.StudentID != 0)
+                {
+                    <a class="btn" onclick="refreshAddNewTab('@Url.Action("AddOrEdit","AjaxCrud",new{id=0})',false)"><i class="fa fa-plus"></i>Refresh</a>
+                }
+            </div>
+        </form>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $('.datepicker').datepicker();
+    });
+
+    function activatejQueryTable() {
+        $("#StudentTable").DataTable();
+    }
+
+    $(function () {
+        activatejQueryTable();
+    });
+
+</script>
+
+
+
+
+

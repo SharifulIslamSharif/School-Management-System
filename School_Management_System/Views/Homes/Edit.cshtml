@@ -1,0 +1,49 @@
+﻿@model School_Management_System.ViewModel.VmBook
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var ExpireDate = Model.ExpireDate == null ? "" : Convert.ToDateTime(Model.ExpireDate).ToString("yyyy-MM-dd");
+
+}
+
+<h4>Edit Book</h4>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@using (Html.BeginForm("Edit", "Homes", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            Department:
+        <select id="DepartmentId" name="DepartmentId" required class="dropdown-trigger btn">
+            @foreach (var item in Model.DepartmentList)
+            {
+                var Selected = item.DepartmentId == Model.DepartmentId ? "selected" : "";
+                <option value="@item.DepartmentId" @Selected>@item.DepartmentName</option>
+            }
+        </select>
+        </div>
+        <div class="form-group">
+            <div id="ProData" class="Table">
+                <div id="RowData" class="Row">
+                    <input type="hidden" name="BookId" value="@Model.BookId" />
+                    <input type="text" name="Rool" placeholder="Student Rool" value="@Model.Rool" />
+                    <input type="text" name="BooktName" placeholder="Book Name" value="@Model.BooktName" />
+                    <input type="text" name="Quantity" placeholder="Quantity" value="@Model.Quantity" />
+                    <input type="date" name="ExpireDate" placeholder="Date" value="@ExpireDate" />
+                    <input type="file" name="imgFile" placeholder="Picture" />
+                    <img src="@Model.ImagePath" style="width:150px" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update" class="btn green">
+            </div>
+        </div>
+    </div>
+}
